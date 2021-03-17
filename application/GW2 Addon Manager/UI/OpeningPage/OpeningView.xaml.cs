@@ -143,11 +143,7 @@ namespace GW2_Addon_Manager
             
             if (pathSelectionDialog.ShowDialog() == CommonFileDialogResult.Ok)
             {
-                //Important that GamePath property is set first as this updates _configurationManager
-                //If _configurationManager.UserConfig.GamePath is invalid, _configurationManager.UserConfig.BinFolder will not be set
                 OpeningViewModel.GetInstance.GamePath = pathSelectionDialog.FileName;
-                Configuration configuration = new Configuration(_configurationManager);
-                configuration.DetermineSystemType();
             }
         }
     }
