@@ -36,8 +36,8 @@ namespace GW2_Addon_Manager
             { }
 
             _configurationManager.UserConfig.GamePath = path;
-            _configurationManager.SaveConfiguration();
             DetermineSystemType();
+            _configurationManager.SaveConfiguration();
         }
 
         /// <summary>
@@ -78,6 +78,7 @@ namespace GW2_Addon_Manager
         /// <summary>
         /// Attempts to read the game folder and determine whether the game is running on a 64 or 32-bit system.
         /// Based on that, sets the 'bin_folder' property in the configuration file.
+        /// Returns bin_folder value for setting along with new GamePath
         /// </summary>
         public void DetermineSystemType()
         {
@@ -85,7 +86,7 @@ namespace GW2_Addon_Manager
             
             if (Directory.Exists(_configurationManager.UserConfig.GamePath + "\\bin64"))
             {
-                _configurationManager.UserConfig.BinFolder= "bin64";
+                _configurationManager.UserConfig.BinFolder = "bin64";
                 _configurationManager.UserConfig.ExeName = "Gw2-64.exe";
             }
             else if (Directory.Exists(_configurationManager.UserConfig.GamePath + "\\bin"))
@@ -93,7 +94,9 @@ namespace GW2_Addon_Manager
                 _configurationManager.UserConfig.BinFolder = "bin";
                 _configurationManager.UserConfig.ExeName = "Gw2.exe";
             }
+
             _configurationManager.SaveConfiguration();
+            //Return the bin folder so we can update _configurationManager without 
         }
 
         /// <summary>
